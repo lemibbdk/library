@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { GetGenreModel } from '../models/genre.model';
+import { map, Observable, of } from 'rxjs';
+import { GenreModel, GetGenreModel } from '../models/genre.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LibraryServiceService {
+export class LibraryService {
 
   constructor() {
   }
 
-  public getLibraryData(): Observable<GetGenreModel> {
+  public getLibraryData(): Observable<GenreModel[]> {
     return of({
       genres: [
         {
@@ -120,5 +120,8 @@ export class LibraryServiceService {
         }
       ]
     })
+      .pipe(
+        map((data: GetGenreModel) => data.genres)
+      )
   }
 }
