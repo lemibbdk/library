@@ -3,7 +3,8 @@
   display: flex;
   flex-direction: column;
   width: 560px;
-  min-height: 400px;
+  height: auto;
+  min-height: 350px;
   border: 1px solid black;
 
   &__title {
@@ -21,15 +22,15 @@
       width: 25%;
 
       &__number {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         margin: 10px 20px;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
         background-color: #e7ecf2;
-        font-size: 25px;
+        font-size: 20px;
         color: #b0b5be;
       }
     }
@@ -41,15 +42,34 @@
     margin-top: 30px;
 
     &__button {
-      background-color: #fff;
-      border: 2px solid #e0e0e0;
-      border-radius: 5px;
       width: 120px;
       height: 45px;
       margin: 5px 10px;
-      cursor: pointer;
     }
   }
+
+  &__actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+
+    &__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 95px;
+      height: 35px;
+      margin-right: 10px;
+    }
+  }
+}
+
+button {
+  background-color: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .active {

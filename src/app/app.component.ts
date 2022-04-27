@@ -53,6 +53,14 @@ export class AppComponent implements OnInit {
       })
   }
 
+  public selectGenre(genre: GenreModel): void {
+    if (this.selectedGenre?.id === genre.id) {
+      this.selectedGenre = null;
+    } else {
+      this.selectedGenre = genre;
+    }
+  }
+
   public toShowBookForm(): boolean {
     return this.currentStep > 2 && this.steps.length === this.currentStep;
   }

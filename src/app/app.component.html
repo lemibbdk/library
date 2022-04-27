@@ -7,7 +7,9 @@
     <div class="form-container__stepper__step"
          *ngFor="let step of steps"
     >
-      <div class="form-container__stepper__step__number">
+      <div class="form-container__stepper__step__number"
+           [class.active]="step.step === currentStep"
+      >
         {{ step.step ? step.step : '...' }}
       </div>
       <div class="form-container__stepper__step__label">
@@ -16,10 +18,12 @@
     </div>
   </div>
 
-  <div class="form-container__form">
+  <div class="form-container__form" *ngIf="currentStep === 1">
     <button type="button"
             class="form-container__form__button"
+            [class.active]="genre.id === selectedGenre?.id"
             *ngFor="let genre of genres"
+            (click)="selectGenre(genre)"
     >
       {{ genre.name }}
     </button>
@@ -28,5 +32,12 @@
   <form formGroup="bookForm" *ngIf="toShowBookForm()">
   </form>
 
-  <div class="form-container__actions"></div>
+  <div class="form-container__actions">
+    <button class="form-container__actions__button">
+      < &nbsp; Back
+    </button>
+    <button class="form-container__actions__button active">
+      Next
+    </button>
+  </div>
 </div>
