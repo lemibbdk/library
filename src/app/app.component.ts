@@ -11,7 +11,6 @@ import { SubgenreModel } from './models/subgenre.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public bookForm: FormGroup;
   public genres: GenreModel[];
   public subgenres: SubgenreModel[];
   public steps: StepModel[];
@@ -19,15 +18,12 @@ export class AppComponent implements OnInit {
   public selectedSubgenre: SubgenreModel | null;
   public currentStep: number;
   public addNewSubgenreSelected: boolean;
+  public bookForm: FormGroup;
+  public subgenreForm: FormGroup;
 
   constructor(
     private _libraryService: LibraryService,
   ) {
-    this.bookForm = new FormGroup({
-      genre: new FormControl(''),
-      subgenre: new FormControl(''),
-    });
-
     this.steps = [
       {
         step: 1,
@@ -50,6 +46,24 @@ export class AppComponent implements OnInit {
     this.selectedSubgenre = null;
     this.currentStep = 1;
     this.addNewSubgenreSelected = false;
+
+    this.subgenreForm = new FormGroup({
+      name: new FormControl(''),
+      isDescriptionRequired: new FormControl(''),
+    })
+
+    this.bookForm = new FormGroup({
+      title: new FormControl(''),
+      author: new FormControl(''),
+      isbn: new FormControl(''),
+      publisher: new FormControl(''),
+      datePublished: new FormControl(''),
+      numberOfPages: new FormControl(''),
+      format: new FormControl(''),
+      edition: new FormControl(''),
+      editionLanguage: new FormControl(''),
+      description: new FormControl(''),
+    });
   }
 
   ngOnInit(): void {
@@ -74,6 +88,9 @@ export class AppComponent implements OnInit {
         break;
       case 2:
         this._handleSecondStepNextClick();
+        break;
+      case 3:
+        this._handleThirdStepNextClick();
         break;
     }
     this.currentStep++;
@@ -111,6 +128,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  private _handleThirdStepNextClick(): void {
+
+  }
+
   public previousStep(): void {
     this.currentStep--;
   }
@@ -129,6 +150,10 @@ export class AppComponent implements OnInit {
       this.selectedSubgenre = null;
     }
     this.addNewSubgenreSelected = !this.addNewSubgenreSelected;
+  }
+
+  public toShowSubgenreForm(): boolean {
+    return this.addNewSubgenreSelected && this.currentStep === 3;
   }
 
   public toShowBookForm(): boolean {

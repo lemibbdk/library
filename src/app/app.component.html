@@ -48,6 +48,9 @@
     </button>
   </div>
 
+  <form formGroup="subgenreForm" *ngIf="toShowSubgenreForm()">
+  </form>
+
   <form formGroup="bookForm" *ngIf="toShowBookForm()">
   </form>
 
