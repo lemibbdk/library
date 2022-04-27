@@ -6,6 +6,7 @@ import { StepModel } from './models/step.model';
 import { SubgenreModel } from './models/subgenre.model';
 import { FormFieldModel, FieldType } from './models/form-field.model';
 import { SelectOptionModel } from './models/select-option.model';
+import { BookModel } from './models/book.model';
 
 @Component({
   selector: 'app-root',
@@ -209,15 +210,21 @@ export class AppComponent implements OnInit {
       if (this.steps.length > 3) {
         this.steps = this.steps.slice(0, 3);
       }
+
+      this._generateBookForm();
     }
   }
 
-  private _handleThirdStepNextClick(): void {
+  private _generateBookForm(): void {
     this.bookFormModel
       .flat()
       .forEach((formItem: FormFieldModel) => {
         this.bookForm.addControl(formItem.field, new FormControl(''));
       })
+  }
+
+  private _handleThirdStepNextClick(): void {
+    this._generateBookForm();
   }
 
   public previousStep(): void {
@@ -278,5 +285,17 @@ export class AppComponent implements OnInit {
           { label: 'None', value: 'none' }
         ]
     }
+  }
+
+  public addBook(): void {
+    const book: BookModel = {
+      genre: this.selectedGenre?.name,
+      subgenre: this.selectedSubgenre?.name,
+      ...this.bookForm.value,
+    };
+
+    console.log(book);
+
+    this.currentStep++;
   }
 }

@@ -102,6 +102,31 @@
       margin-right: 10px;
     }
   }
+
+  &__success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+
+    &__check {
+
+      i {
+        font-size: 150px;
+        color: #e7ecf2;      }
+    }
+
+    &__message {
+      margin-top: 20px;
+    }
+
+    &__button {
+      margin-top: 40px;
+      width: 270px;
+      height: 35px;
+    }
+  }
 }
 
 button {

@@ -1,9 +1,13 @@
 <div class="form-container">
-  <div class="form-container__title">
+  <div class="form-container__title"
+       *ngIf="currentStep <= steps.length"
+  >
     Add book - New book
   </div>
 
-  <div class="form-container__stepper">
+  <div class="form-container__stepper"
+       *ngIf="currentStep <= steps.length"
+  >
     <div class="form-container__stepper__step"
          *ngFor="let step of steps"
     >
@@ -115,16 +119,44 @@
     </div>
   </form>
 
-  <div class="form-container__actions">
+  <div class="form-container__actions"
+       *ngIf="currentStep <= steps.length"
+  >
     <button class="form-container__actions__button"
             (click)="previousStep()"
     >
       < &nbsp; Back
     </button>
+
     <button class="form-container__actions__button active"
             (click)="nextStep()"
+            *ngIf="!(currentStep === steps.length); else addButton"
     >
       Next
+    </button>
+
+    <ng-template #addButton>
+      <button class="form-container__actions__button active"
+              (click)="addBook()"
+      >
+        Add
+      </button>
+    </ng-template>
+  </div>
+
+  <div class="form-container__success" *ngIf="this.steps.length < this.currentStep">
+    <div class="form-container__success__check">
+      <i class="fa fa-check-circle"></i>
+    </div>
+
+    <div class="form-container__success__message">
+      Book added successfully
+    </div>
+
+    <button type="button"
+            class="form-container__success__button active"
+    >
+      Add another book
     </button>
   </div>
 </div>
