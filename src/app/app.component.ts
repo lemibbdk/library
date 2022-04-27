@@ -4,6 +4,7 @@ import { LibraryService } from './services/library.service';
 import { GenreModel } from './models/genre.model';
 import { StepModel } from './models/step.model';
 import { SubgenreModel } from './models/subgenre.model';
+import { FormFieldModel, FieldType } from './models/form-field.model';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,8 @@ export class AppComponent implements OnInit {
   public addNewSubgenreSelected: boolean;
   public bookForm: FormGroup;
   public subgenreForm: FormGroup;
+  public bookFormModel: FormFieldModel[][];
+  public fieldTypes = FieldType;
 
   constructor(
     private _libraryService: LibraryService,
@@ -64,6 +67,87 @@ export class AppComponent implements OnInit {
       editionLanguage: new FormControl(''),
       description: new FormControl(''),
     });
+
+    this.bookFormModel = [
+      [
+        {
+          field: 'title',
+          label: 'Book title',
+          inputType: FieldType.INPUT,
+          width: 100,
+        }
+      ],
+      [
+        {
+          field: 'author',
+          label: 'Author',
+          inputType: FieldType.SELECT,
+          width: 100,
+        }
+      ],
+      [
+        {
+          field: 'isbn',
+          label: 'ISBN',
+          inputType: FieldType.INPUT,
+          width: 100,
+        }
+      ],
+      [
+        {
+          field: 'publisher',
+          label: 'Publisher',
+          inputType: FieldType.SELECT,
+          width: 100,
+        }
+      ],
+      [
+        {
+          field: 'datePublished',
+          label: 'Date published',
+          inputType: FieldType.INPUT,
+          width: 33,
+        }
+      ],
+      [
+        {
+          field: 'numberOfPages',
+          label: 'Number of pages',
+          inputType: FieldType.INPUT,
+          width: 25,
+        }
+      ],
+      [
+        {
+          field: 'format',
+          label: 'Format',
+          inputType: FieldType.SELECT,
+          width: 33,
+        }
+      ],
+      [
+        {
+          field: 'edition',
+          label: 'Edition',
+          inputType: FieldType.INPUT,
+          width: 33,
+        },
+        {
+          field: 'editionLanguage',
+          label: 'Edition language',
+          inputType: FieldType.SELECT,
+          width: 33,
+        },
+      ],
+      [
+        {
+          field: 'description',
+          label: 'Description',
+          inputType: FieldType.TEXTAREA,
+          width: 100,
+        }
+      ],
+    ]
   }
 
   ngOnInit(): void {

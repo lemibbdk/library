@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="form-container__form" *ngIf="currentStep === 1">
+  <div class="form-container__form" *ngIf="currentStep === 0">
     <button type="button"
             class="form-container__form__button"
             [class.active]="genre.id === selectedGenre?.id"
@@ -48,10 +48,66 @@
     </button>
   </div>
 
-  <form formGroup="subgenreForm" *ngIf="toShowSubgenreForm()">
+  <form [formGroup]="subgenreForm"
+        class="form-container__form"
+        *ngIf="toShowSubgenreForm()"
+  >
+    <div class="form-container__form__form-field">
+      <input type="text"
+             formControlName="name"
+             placeholder="Subgenre name"
+      />
+    </div>
+
+    <div class="form-container__form__checkbox-area">
+      <input type="checkbox" formControlName="isDescriptionRequired" />
+      <span> Description is required for this subgenre </span>
+    </div>
   </form>
 
-  <form formGroup="bookForm" *ngIf="toShowBookForm()">
+  <form [formGroup]="bookForm"
+        class="form-container__form"
+        *ngIf="currentStep === 1">
+    <div class="form-container__form__row"
+      *ngFor="let row of bookFormModel"
+    >
+      <div class="form-container__form__row__form-field"
+           *ngFor="let field of row"
+      >
+        <ng-container [ngSwitch]="field.inputType">
+          <ng-container *ngSwitchCase="fieldTypes.INPUT">
+            <label> {{ field.label }} </label>
+            <input type="text"
+                   formControlName="{{ field.field }}"
+                   [class.w-25]="field.width === 25"
+                   [class.w-33]="field.width === 33"
+                   [class.w-100]="field.width === 100"
+            />
+          </ng-container>
+
+          <ng-container *ngSwitchCase="fieldTypes.SELECT">
+            <label> {{ field.label }} </label>
+            <select formControlName="{{ field.field }}"
+                   [class.w-25]="field.width === 25"
+                   [class.w-33]="field.width === 33"
+                   [class.w-100]="field.width === 100"
+            >
+            </select>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="fieldTypes.TEXTAREA">
+            <label> {{ field.label }} </label>
+            <textarea formControlName="{{ field.field }}"
+                    [class.w-25]="field.width === 25"
+                    [class.w-33]="field.width === 33"
+                    [class.w-100]="field.width === 100"
+            >
+            </textarea>
+          </ng-container>
+        </ng-container>
+      </div>
+
+    </div>
   </form>
 
   <div class="form-container__actions">
