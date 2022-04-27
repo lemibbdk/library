@@ -16,7 +16,16 @@
     </div>
   </div>
 
-  <form formGroup="bookForm">
+  <div class="form-container__form">
+    <button type="button"
+            class="form-container__form__button"
+            *ngFor="let genre of genres"
+    >
+      {{ genre.name }}
+    </button>
+  </div>
+
+  <form formGroup="bookForm" *ngIf="toShowBookForm()">
   </form>
 
   <div class="form-container__actions"></div>
