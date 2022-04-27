@@ -38,6 +38,14 @@
     >
       {{ subgenre.name }}
     </button>
+
+    <button type="button"
+            class="form-container__form__button"
+            [class.active]="addNewSubgenreSelected"
+            (click)="onAddNewClick()"
+    >
+      Add new
+    </button>
   </div>
 
   <form formGroup="bookForm" *ngIf="toShowBookForm()">

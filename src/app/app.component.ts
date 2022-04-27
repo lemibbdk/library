@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   public selectedGenre: GenreModel | null;
   public selectedSubgenre: SubgenreModel | null;
   public currentStep: number;
+  public addNewSubgenreSelected: boolean;
 
   constructor(
     private _libraryService: LibraryService,
@@ -48,6 +49,7 @@ export class AppComponent implements OnInit {
     this.selectedGenre = null;
     this.selectedSubgenre = null;
     this.currentStep = 1;
+    this.addNewSubgenreSelected = false;
   }
 
   ngOnInit(): void {
@@ -79,11 +81,19 @@ export class AppComponent implements OnInit {
   }
 
   public selectSubgenre(subgenre: SubgenreModel): void {
+    this.addNewSubgenreSelected = false;
     if (this.selectedSubgenre?.id === subgenre.id) {
       this.selectedSubgenre = null;
     } else {
       this.selectedSubgenre = subgenre;
     }
+  }
+
+  public onAddNewClick(): void {
+    if (this.selectedSubgenre) {
+      this.selectedSubgenre = null;
+    }
+    this.addNewSubgenreSelected = !this.addNewSubgenreSelected;
   }
 
   public toShowBookForm(): boolean {
