@@ -18,9 +18,9 @@
     </div>
   </div>
 
-  <div class="form-container__form" *ngIf="currentStep === 0">
+  <div class="form-container__select-buttons" *ngIf="currentStep === 1">
     <button type="button"
-            class="form-container__form__button"
+            class="form-container__select-buttons__button"
             [class.active]="genre.id === selectedGenre?.id"
             *ngFor="let genre of genres"
             (click)="selectGenre(genre)"
@@ -29,9 +29,9 @@
     </button>
   </div>
 
-  <div class="form-container__form" *ngIf="currentStep === 2">
+  <div class="form-container__select-buttons" *ngIf="currentStep === 2">
     <button type="button"
-            class="form-container__form__button"
+            class="form-container__select-buttons__button"
             [class.active]="subgenre.id === selectedSubgenre?.id"
             *ngFor="let subgenre of subgenres"
             (click)="selectSubgenre(subgenre)"
@@ -40,7 +40,7 @@
     </button>
 
     <button type="button"
-            class="form-container__form__button"
+            class="form-container__select-buttons__button"
             [class.active]="addNewSubgenreSelected"
             (click)="onAddNewClick()"
     >
@@ -67,7 +67,7 @@
 
   <form [formGroup]="bookForm"
         class="form-container__form"
-        *ngIf="currentStep === 1">
+        *ngIf="toShowBookForm()">
     <div class="form-container__form__row"
          *ngFor="let row of bookFormModel"
     >

@@ -56,18 +56,7 @@ export class AppComponent implements OnInit {
       isDescriptionRequired: new FormControl(''),
     })
 
-    this.bookForm = new FormGroup({
-      title: new FormControl(''),
-      author: new FormControl(''),
-      isbn: new FormControl(''),
-      publisher: new FormControl(''),
-      datePublished: new FormControl(''),
-      numberOfPages: new FormControl(''),
-      format: new FormControl(''),
-      edition: new FormControl(''),
-      editionLanguage: new FormControl(''),
-      description: new FormControl(''),
-    });
+    this.bookForm = new FormGroup({});
 
     this.bookFormModel = [
       [
@@ -224,7 +213,11 @@ export class AppComponent implements OnInit {
   }
 
   private _handleThirdStepNextClick(): void {
-
+    this.bookFormModel
+      .flat()
+      .forEach((formItem: FormFieldModel) => {
+        this.bookForm.addControl(formItem.field, new FormControl(''));
+      })
   }
 
   public previousStep(): void {
