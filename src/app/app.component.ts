@@ -5,6 +5,7 @@ import { GenreModel } from './models/genre.model';
 import { StepModel } from './models/step.model';
 import { SubgenreModel } from './models/subgenre.model';
 import { FormFieldModel, FieldType } from './models/form-field.model';
+import { SelectOptionModel } from './models/select-option.model';
 
 @Component({
   selector: 'app-root',
@@ -242,5 +243,37 @@ export class AppComponent implements OnInit {
 
   public toShowBookForm(): boolean {
     return this.currentStep > 2 && this.steps.length === this.currentStep;
+  }
+
+  public getSelectOptions(field: FormFieldModel): SelectOptionModel[] {
+    switch (field.field) {
+      case 'author':
+        return [
+          { label: 'Aleksa Milenkovic', value: 'Aleksa Milenkovic' },
+          { label: 'Marko Markovic', value: 'Marko Markovic' },
+          { label: 'Petar Peric', value: 'Petar Peric' },
+        ];
+      case 'publisher':
+        return [
+          { label: 'Delphi', value: 'Delphi d.o.o.' },
+          { label: 'Vulkan', value: 'Vulkan d.o.o.' },
+        ];
+      case 'format':
+        return [
+          { label: 'A4', value: 'A4 format' },
+          { label: 'A3', value: 'A3 format' },
+        ];
+      case 'editionLanguage':
+        return [
+          { label: 'English', value: 'EN' },
+          { label: 'Serbian', value: 'RS' },
+          { label: 'French', value: 'FR' },
+          { label: 'Spanish', value: 'ES' },
+        ];
+      default:
+        return [
+          { label: 'None', value: 'none' }
+        ]
+    }
   }
 }

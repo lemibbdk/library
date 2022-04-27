@@ -92,6 +92,11 @@
                    [class.w-33]="field.width === 33"
                    [class.w-100]="field.width === 100"
             >
+              <option *ngFor="let option of getSelectOptions(field)"
+                      value="{{ option.value }}"
+              >
+                {{ option.label }}
+              </option>
             </select>
           </ng-container>
 
