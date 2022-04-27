@@ -68,12 +68,47 @@ export class AppComponent implements OnInit {
   }
 
   public nextStep(): void {
+    switch (this.currentStep) {
+      case 1:
+        this._handleFirstStepNextClick();
+        break;
+      case 2:
+        this._handleSecondStepNextClick();
+        break;
+    }
+    this.currentStep++;
+  }
+
+  private _handleFirstStepNextClick(): void {
     if (!this.selectedGenre) {
       return;
     }
 
     this.subgenres = this.selectedGenre.subgenres;
-    this.currentStep++;
+  }
+
+  private _handleSecondStepNextClick(): void {
+    if (!this.selectedSubgenre && !this.addNewSubgenreSelected) {
+      return;
+    }
+
+    if (this.addNewSubgenreSelected && this.steps.length === 3) {
+      this.steps[2].step = 3;
+      this.steps[2].label = 'Add new subgenre';
+      this.steps.push({
+        step: 4,
+        label: 'Information',
+      });
+    }
+
+    if (!this.addNewSubgenreSelected) {
+      this.steps[2].step = 3;
+      this.steps[2].label = 'Information';
+
+      if (this.steps.length > 3) {
+        this.steps = this.steps.slice(0, 3);
+      }
+    }
   }
 
   public previousStep(): void {
