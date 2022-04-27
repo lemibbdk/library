@@ -4,20 +4,15 @@
   </div>
 
   <div class="form-container__stepper">
-    <div class="form-container__stepper__step">
-      1
-    </div>
-
-    <div class="form-container__stepper__step">
-      2
-    </div>
-
-    <div class="form-container__stepper__step">
-      ...
-    </div>
-
-    <div class="form-container__stepper__step">
-      4
+    <div class="form-container__stepper__step"
+         *ngFor="let step of steps"
+    >
+      <div class="form-container__stepper__step__number">
+        {{ step.step ? step.step : '...' }}
+      </div>
+      <div class="form-container__stepper__step__label">
+        {{ step.label }}
+      </div>
     </div>
   </div>
 
