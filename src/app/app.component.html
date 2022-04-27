@@ -29,14 +29,29 @@
     </button>
   </div>
 
+  <div class="form-container__form" *ngIf="currentStep === 2">
+    <button type="button"
+            class="form-container__form__button"
+            [class.active]="subgenre.id === selectedSubgenre?.id"
+            *ngFor="let subgenre of subgenres"
+            (click)="selectSubgenre(subgenre)"
+    >
+      {{ subgenre.name }}
+    </button>
+  </div>
+
   <form formGroup="bookForm" *ngIf="toShowBookForm()">
   </form>
 
   <div class="form-container__actions">
-    <button class="form-container__actions__button">
+    <button class="form-container__actions__button"
+            (click)="previousStep()"
+    >
       < &nbsp; Back
     </button>
-    <button class="form-container__actions__button active">
+    <button class="form-container__actions__button active"
+            (click)="nextStep()"
+    >
       Next
     </button>
   </div>

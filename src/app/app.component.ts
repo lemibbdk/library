@@ -12,7 +12,8 @@ import { SubgenreModel } from './models/subgenre.model';
 })
 export class AppComponent implements OnInit {
   public bookForm: FormGroup;
-  public genres?: GenreModel[];
+  public genres: GenreModel[];
+  public subgenres: SubgenreModel[];
   public steps: StepModel[];
   public selectedGenre: GenreModel | null;
   public selectedSubgenre: SubgenreModel | null;
@@ -41,6 +42,9 @@ export class AppComponent implements OnInit {
       },
     ];
 
+    this.genres = [];
+    this.subgenres = [];
+
     this.selectedGenre = null;
     this.selectedSubgenre = null;
     this.currentStep = 1;
@@ -58,6 +62,27 @@ export class AppComponent implements OnInit {
       this.selectedGenre = null;
     } else {
       this.selectedGenre = genre;
+    }
+  }
+
+  public nextStep(): void {
+    if (!this.selectedGenre) {
+      return;
+    }
+
+    this.subgenres = this.selectedGenre.subgenres;
+    this.currentStep++;
+  }
+
+  public previousStep(): void {
+    this.currentStep--;
+  }
+
+  public selectSubgenre(subgenre: SubgenreModel): void {
+    if (this.selectedSubgenre?.id === subgenre.id) {
+      this.selectedSubgenre = null;
+    } else {
+      this.selectedSubgenre = subgenre;
     }
   }
 
