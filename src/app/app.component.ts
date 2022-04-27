@@ -74,6 +74,7 @@ export class AppComponent implements OnInit {
         {
           field: 'title',
           label: 'Book title',
+          placeholder: 'Book title',
           inputType: FieldType.INPUT,
           width: 100,
         }
@@ -82,6 +83,7 @@ export class AppComponent implements OnInit {
         {
           field: 'author',
           label: 'Author',
+          placeholder: 'Author',
           inputType: FieldType.SELECT,
           width: 100,
         }
@@ -90,6 +92,7 @@ export class AppComponent implements OnInit {
         {
           field: 'isbn',
           label: 'ISBN',
+          placeholder: 'ISBN',
           inputType: FieldType.INPUT,
           width: 100,
         }
@@ -98,6 +101,7 @@ export class AppComponent implements OnInit {
         {
           field: 'publisher',
           label: 'Publisher',
+          placeholder: 'Publisher',
           inputType: FieldType.SELECT,
           width: 100,
         }
@@ -106,6 +110,7 @@ export class AppComponent implements OnInit {
         {
           field: 'datePublished',
           label: 'Date published',
+          placeholder: 'DD/MM/YYYY',
           inputType: FieldType.INPUT,
           width: 33,
         }
@@ -114,6 +119,7 @@ export class AppComponent implements OnInit {
         {
           field: 'numberOfPages',
           label: 'Number of pages',
+          placeholder: 'Number of pages',
           inputType: FieldType.INPUT,
           width: 25,
         }
@@ -122,6 +128,7 @@ export class AppComponent implements OnInit {
         {
           field: 'format',
           label: 'Format',
+          placeholder: 'Format',
           inputType: FieldType.SELECT,
           width: 33,
         }
@@ -130,12 +137,14 @@ export class AppComponent implements OnInit {
         {
           field: 'edition',
           label: 'Edition',
+          placeholder: 'Edition',
           inputType: FieldType.INPUT,
           width: 33,
         },
         {
           field: 'editionLanguage',
           label: 'Edition language',
+          placeholder: 'Edition language',
           inputType: FieldType.SELECT,
           width: 33,
         },
@@ -144,6 +153,7 @@ export class AppComponent implements OnInit {
         {
           field: 'description',
           label: 'Description',
+          placeholder: 'Description',
           inputType: FieldType.TEXTAREA,
           width: 100,
         }

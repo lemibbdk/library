@@ -69,7 +69,7 @@
         class="form-container__form"
         *ngIf="currentStep === 1">
     <div class="form-container__form__row"
-      *ngFor="let row of bookFormModel"
+         *ngFor="let row of bookFormModel"
     >
       <div class="form-container__form__row__form-field"
            *ngFor="let field of row"
@@ -79,6 +79,7 @@
             <label> {{ field.label }} </label>
             <input type="text"
                    formControlName="{{ field.field }}"
+                   placeholder="{{ field.placeholder }}"
                    [class.w-25]="field.width === 25"
                    [class.w-33]="field.width === 33"
                    [class.w-100]="field.width === 100"
@@ -88,9 +89,9 @@
           <ng-container *ngSwitchCase="fieldTypes.SELECT">
             <label> {{ field.label }} </label>
             <select formControlName="{{ field.field }}"
-                   [class.w-25]="field.width === 25"
-                   [class.w-33]="field.width === 33"
-                   [class.w-100]="field.width === 100"
+                    [class.w-25]="field.width === 25"
+                    [class.w-33]="field.width === 33"
+                    [class.w-100]="field.width === 100"
             >
               <option *ngFor="let option of getSelectOptions(field)"
                       value="{{ option.value }}"
@@ -103,15 +104,14 @@
           <ng-container *ngSwitchCase="fieldTypes.TEXTAREA">
             <label> {{ field.label }} </label>
             <textarea formControlName="{{ field.field }}"
-                    [class.w-25]="field.width === 25"
-                    [class.w-33]="field.width === 33"
-                    [class.w-100]="field.width === 100"
+                      [class.w-25]="field.width === 25"
+                      [class.w-33]="field.width === 33"
+                      [class.w-100]="field.width === 100"
             >
             </textarea>
           </ng-container>
         </ng-container>
       </div>
-
     </div>
   </form>
 
