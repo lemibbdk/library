@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Book title',
           inputType: FieldType.INPUT,
           width: 100,
+          validators: [Validators.required],
         }
       ],
       [
@@ -66,6 +67,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Author',
           inputType: FieldType.SELECT,
           width: 100,
+          validators: [Validators.required],
         }
       ],
       [
@@ -75,6 +77,7 @@ export class AppComponent implements OnInit {
           placeholder: 'ISBN',
           inputType: FieldType.INPUT,
           width: 100,
+          validators: [Validators.required],
         }
       ],
       [
@@ -84,6 +87,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Publisher',
           inputType: FieldType.SELECT,
           width: 100,
+          validators: [Validators.required],
         }
       ],
       [
@@ -93,6 +97,10 @@ export class AppComponent implements OnInit {
           placeholder: 'DD/MM/YYYY',
           inputType: FieldType.INPUT,
           width: 33,
+          validators: [
+            Validators.required,
+            Validators.pattern('^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$'),
+          ],
         }
       ],
       [
@@ -102,6 +110,10 @@ export class AppComponent implements OnInit {
           placeholder: 'Number of pages',
           inputType: FieldType.INPUT,
           width: 25,
+          validators: [
+            Validators.required,
+            Validators.pattern('^[0-9]*$'),
+          ],
         }
       ],
       [
@@ -111,6 +123,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Format',
           inputType: FieldType.SELECT,
           width: 33,
+          validators: [Validators.required],
         }
       ],
       [
@@ -120,6 +133,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Edition',
           inputType: FieldType.INPUT,
           width: 33,
+          validators: [Validators.required],
         },
         {
           field: 'editionLanguage',
@@ -127,6 +141,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Edition language',
           inputType: FieldType.SELECT,
           width: 33,
+          validators: [Validators.required],
         },
       ],
       [
@@ -136,6 +151,7 @@ export class AppComponent implements OnInit {
           placeholder: 'Description',
           inputType: FieldType.TEXTAREA,
           width: 100,
+          validators: [],
         }
       ],
     ]
@@ -232,7 +248,7 @@ export class AppComponent implements OnInit {
         } else {
           this.bookForm.addControl(
             formItem.field,
-            new FormControl('', Validators.required),
+            new FormControl('', formItem.validators),
           );
         }
       })
@@ -357,6 +373,27 @@ export class AppComponent implements OnInit {
     console.log(book);
 
     this.currentStep++;
+  }
+
+  public controlHasError(controlName: string): boolean {
+    const control = this.bookForm.get(controlName) as FormControl;
+    return control?.touched && control?.invalid;
+  }
+
+  public getControlError(controlName: string): string {
+    let error: string;
+    const control = this.bookForm.get(controlName) as FormControl;
+
+    const controlErrors = control.errors;
+    if (controlErrors) {
+      error = Object.keys(controlErrors)[0] === 'pattern'
+        ? '* Invalid format or input type'
+        : '* ' + Object.keys(controlErrors)[0]
+    } else {
+      error = '';
+    }
+
+    return error
   }
 
   public resetForm(): void {
