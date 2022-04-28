@@ -1,8 +1,8 @@
 .form-container {
-  margin: 0 auto;
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
-  width: 560px;
+  width: 576px;
   height: auto;
   min-height: 350px;
   border: 1px solid black;
@@ -140,6 +140,7 @@ input, select {
   border: 2px solid #e0e0e0;
   border-radius: 5px;
   height: 25px;
+  padding: 3px 7px;
 }
 
 ::placeholder {

@@ -56,7 +56,7 @@
         class="form-container__form"
         *ngIf="toShowSubgenreForm()"
   >
-    <div class="form-container__form__form-field">
+    <div class="form-container__form__row__form-field">
       <input type="text"
              formControlName="name"
              placeholder="Subgenre name"
@@ -155,6 +155,7 @@
 
     <button type="button"
             class="form-container__success__button active"
+            (click)="resetForm()"
     >
       Add another book
     </button>
