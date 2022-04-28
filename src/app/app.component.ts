@@ -281,6 +281,25 @@ export class AppComponent implements OnInit {
     return this.currentStep > 2 && this.steps.length === this.currentStep;
   }
 
+  public isNextButtonDisabled(): boolean {
+    switch (this.currentStep) {
+      case 1:
+        return !this.selectedGenre;
+      case 2:
+        return !this.selectedSubgenre && !this.addNewSubgenreSelected;
+      case 3:
+        if (this.steps.length === 3) {
+          return this.bookForm.invalid;
+        } else {
+          return this.subgenreForm.invalid;
+        }
+      case 4:
+        return this.bookForm.invalid;
+      default:
+        return false;
+    }
+  }
+
   public getSelectOptions(field: FormFieldModel): SelectOptionModel[] {
     switch (field.field) {
       case 'author':

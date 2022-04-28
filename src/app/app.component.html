@@ -130,6 +130,7 @@
 
     <button class="form-container__actions__button active"
             (click)="nextStep()"
+            [class.disabled]="isNextButtonDisabled()"
             *ngIf="!(currentStep === steps.length); else addButton"
     >
       Next
