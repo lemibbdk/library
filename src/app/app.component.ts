@@ -16,13 +16,13 @@ import { BookModel } from './models/book.model';
 export class AppComponent implements OnInit {
   public genres: GenreModel[];
   public subgenres: SubgenreModel[];
-  public steps: StepModel[];
-  public selectedGenre: GenreModel | null;
-  public selectedSubgenre: SubgenreModel | null;
-  public currentStep: number;
-  public addNewSubgenreSelected: boolean;
-  public bookForm: FormGroup;
-  public subgenreForm: FormGroup;
+  public steps!: StepModel[];
+  public selectedGenre!: GenreModel | null;
+  public selectedSubgenre!: SubgenreModel | null;
+  public currentStep!: number;
+  public addNewSubgenreSelected!: boolean;
+  public bookForm!: FormGroup;
+  public subgenreForm!: FormGroup;
   public bookFormModel: FormFieldModel[][];
   public fieldTypes = FieldType;
 
@@ -44,22 +44,10 @@ export class AppComponent implements OnInit {
   constructor(
     private _libraryService: LibraryService,
   ) {
-    this.steps = JSON.parse(JSON.stringify(this._initSteps));
-
     this.genres = [];
     this.subgenres = [];
 
-    this.selectedGenre = null;
-    this.selectedSubgenre = null;
-    this.currentStep = 1;
-    this.addNewSubgenreSelected = false;
-
-    this.subgenreForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      isDescriptionRequired: new FormControl(''),
-    });
-
-    this.bookForm = new FormGroup({});
+    this._initFieldStates();
 
     this.bookFormModel = [
       [
@@ -160,6 +148,21 @@ export class AppComponent implements OnInit {
       })
   }
 
+  private _initFieldStates(): void {
+    this.steps = JSON.parse(JSON.stringify(this._initSteps));
+    this.selectedGenre = null;
+    this.selectedSubgenre = null;
+    this.addNewSubgenreSelected = false;
+    this.currentStep = 1;
+
+    this.subgenreForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      isDescriptionRequired: new FormControl(''),
+    });
+
+    this.bookForm = new FormGroup({});
+  }
+
   public selectGenre(genre: GenreModel): void {
     if (this.selectedGenre?.id === genre.id) {
       this.selectedGenre = null;
@@ -236,10 +239,6 @@ export class AppComponent implements OnInit {
   }
 
   private _handleThirdStepNextClick(): void {
-    if (this.steps.length === 4) {
-      this._generateBookForm();
-    }
-
     if (this.addNewSubgenreSelected) {
       let maxId = 0
       for (let genre of this.genres) {
@@ -255,17 +254,26 @@ export class AppComponent implements OnInit {
       const nextId = maxId + 1;
 
       const targetGenre = this.genres.find(el => el.id === this.selectedGenre!.id);
-      targetGenre!.subgenres.push({
+      const newSubgenre = {
         id: nextId,
         name: this.subgenreForm.get('name')!.value,
         isDescriptionRequired: this.subgenreForm.get('isDescriptionRequired')!.value ?? false,
-      })
+      }
+      targetGenre!.subgenres.push(newSubgenre);
+      this.selectedSubgenre = newSubgenre;
+    }
+
+    if (this.steps.length === 4) {
+      this._generateBookForm();
     }
   }
 
   public previousStep(): void {
     if (this.currentStep === this.steps.length) {
       this.bookForm = new FormGroup({});
+    }
+    if (this.currentStep === 1) {
+      return;
     }
     this.currentStep--;
   }
@@ -352,11 +360,6 @@ export class AppComponent implements OnInit {
   }
 
   public resetForm(): void {
-    this.selectedGenre = null;
-    this.selectedSubgenre = null;
-    this.addNewSubgenreSelected = false;
-    this.steps = JSON.parse(JSON.stringify(this._initSteps));
-
-    this.currentStep = 1;
+    this._initFieldStates();
   }
 }
