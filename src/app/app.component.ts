@@ -207,6 +207,15 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    if (this.selectedSubgenre) {
+      const subgenreInSelectedGenre = this.selectedGenre.subgenres
+        .find(el => el.id === this.selectedSubgenre?.id);
+
+      if (!subgenreInSelectedGenre) {
+        this.selectedSubgenre = null;
+      }
+    }
+
     this.subgenres = this.selectedGenre.subgenres;
   }
 

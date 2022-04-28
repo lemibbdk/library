@@ -79,6 +79,14 @@
         justify-content: center;
         width: 97%;
         margin: 10px 0;
+
+        label {
+          margin-bottom: 5px;
+        }
+
+        &:nth-child(2) {
+          margin-left: 20px;
+        }
       }
     }
 

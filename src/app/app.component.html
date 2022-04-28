@@ -79,6 +79,9 @@
     >
       <div class="form-container__form__row__form-field"
            *ngFor="let field of row"
+           [class.w-25]="field.width === 25"
+           [class.w-33]="field.width === 33"
+           [class.w-100]="field.width === 100"
       >
         <ng-container [ngSwitch]="field.inputType">
           <ng-container *ngSwitchCase="fieldTypes.INPUT">
@@ -86,18 +89,12 @@
             <input type="text"
                    formControlName="{{ field.field }}"
                    placeholder="{{ field.placeholder }}"
-                   [class.w-25]="field.width === 25"
-                   [class.w-33]="field.width === 33"
-                   [class.w-100]="field.width === 100"
             />
           </ng-container>
 
           <ng-container *ngSwitchCase="fieldTypes.SELECT">
             <label> {{ field.label }} </label>
             <select formControlName="{{ field.field }}"
-                    [class.w-25]="field.width === 25"
-                    [class.w-33]="field.width === 33"
-                    [class.w-100]="field.width === 100"
             >
               <option *ngFor="let option of getSelectOptions(field)"
                       value="{{ option.value }}"
