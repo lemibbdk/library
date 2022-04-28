@@ -221,7 +221,17 @@ export class AppComponent implements OnInit {
     this.bookFormModel
       .flat()
       .forEach((formItem: FormFieldModel) => {
-        this.bookForm.addControl(formItem.field, new FormControl(''));
+        if (formItem.field === 'description' && !this.selectedSubgenre!.isDescriptionRequired) {
+          this.bookForm.addControl(
+            formItem.field,
+            new FormControl(''),
+          );
+        } else {
+          this.bookForm.addControl(
+            formItem.field,
+            new FormControl('', Validators.required),
+          );
+        }
       })
   }
 
@@ -254,6 +264,9 @@ export class AppComponent implements OnInit {
   }
 
   public previousStep(): void {
+    if (this.currentStep === this.steps.length) {
+      this.bookForm = new FormGroup({});
+    }
     this.currentStep--;
   }
 
@@ -288,13 +301,7 @@ export class AppComponent implements OnInit {
       case 2:
         return !this.selectedSubgenre && !this.addNewSubgenreSelected;
       case 3:
-        if (this.steps.length === 3) {
-          return this.bookForm.invalid;
-        } else {
-          return this.subgenreForm.invalid;
-        }
-      case 4:
-        return this.bookForm.invalid;
+        return this.subgenreForm.invalid;
       default:
         return false;
     }

@@ -138,6 +138,7 @@
 
     <ng-template #addButton>
       <button class="form-container__actions__button active"
+              [class.disabled]="bookForm.invalid"
               (click)="addBook()"
       >
         Add
